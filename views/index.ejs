@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>To Do App</title>
+    <style>
+        html {
+            box-sizing: inherit;
+        }
+
+        *,
+        *::after,
+        *::before {
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            padding: 0;
+            background-color: lightgray;
+            font-family: sans-serif;
+        }
+
+        .toDoList__main {
+            margin: 5vw auto;
+            width: 500px;
+            background-color: #fff;
+            padding: 20px 30px;
+            min-height: 500px;
+            border-radius: 5px;
+            box-shadow: -8px -8px 15px rgba(255, 255, 255, 0.05),
+                10px 10px 10px rgba(0, 0, 0, 0.3),
+                inset -8px -8px 15px rgba(255, 255, 255, 0.05),
+                inset 0px 0px 0px rgba(0, 0, 0, 0.3);
+        }
+
+        .display {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .toDoList__input {
+            width: 350px;
+            height: 45px;
+            border: none;
+            border: 1px solid #B7B7B7;
+            outline: none;
+            padding: 4px 10px;
+            font-size: 22px;
+        }
+
+        .toDoList__input:active {
+            border: none;
+        }
+
+        .toDoList__btn {
+            border: none;
+            background-color: blueviolet;
+            border: 1px solid blueviolet;
+            width: 45px;
+            height: 45px;
+            outline: none;
+            border-radius: 3px;
+            color: #fff;
+            font-size: 35px;
+        }
+
+        .toDoList__btn:active {
+            transform: scale(1.1);
+        }
+
+        /* Form section end */
+
+        .toDoList__list {
+            padding: 0;
+            list-style-type: none;
+            margin-top: 30px;
+            min-height: 100px;
+            max-height: 280px;
+            overflow: auto;
+            overflow-x: hidden;
+        }
+
+        .toDoList__item {
+            background-color: #F2F2F2;
+            margin-top: 35px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 5px 0px;
+            padding-left: 10px;
+            font-size: 20px;
+            position: relative;
+        }
+
+        .toDoList__item:active {
+            transform: scale(1.01);
+        }
+
+        .toDoList__button {
+            display: block;
+            border: none;
+            color: #fff;
+            background-color: blueviolet;
+            outline: none;
+            width: 20px;
+            text-decoration: none;
+            margin: 0;
+        }
+
+        .paragraph {
+            margin-top: 10px;
+            font-size: 22px;
+            color: red;
+        }
+
+        .p {
+            margin: 0;
+            transform: translateX(5px);
+        }
+
+        .toDoList__time {
+            position: absolute;
+            left: 0px;
+            top: -19px;
+            font-size: 12px;
+            background-color: blueviolet;
+            color: #fff;
+            border-radius: 3px;
+            padding: 3px 5px;
+        }
+    </style>
+</head>
+
+<body>
+    <main class="toDoList__main">
+        <h1 class="toDoList__heading"> To Do App</h1>
+        <form action="/" method="POST" id="form" class="toDoList__form">
+            <div class="display">
+                <input type="text" name="name" id="input" required placeholder="Add To List..."
+                    class="toDoList__input" />
+                <button type="submit" class="toDoList__btn">+</button>
+            </div>
+            <input type="time" name="time" id="inputTime" />
+        </form>
+        <% if(!data.length) { %>
+        <p class="paragraph">toDo did not remain</p>
+        <%  }%>
+        <ul class="toDoList__list">
+            <% for(let item of data) { %>
+            <li class="toDoList__item">
+                <strong>
+                    <%= item.name %>
+                </strong>
+                <a href="/delete/<%= item.id %>" class="toDoList__button">
+                    <p class="p">x</p>
+
+                    <% let today = new Date () %>
+                    <% let hours = today.getHours() %>
+                    <% let minutes = today.getMinutes()%>
+                    <% let day = hours + ":" + minutes %>
+                    
+                    <% if(!(item.time.value)) {%>
+                    <time class="toDoList__time" id="time"> <%= day %> </time>
+                    <% } %> 
+                    <time class="toDoList__time" id="time"> <%= item.time %> </time>
+                </a>
+            </li>
+            <% } %>
+        </ul>
+    </main>
+
+    <script>
+        form.reset()
+        input.focus()
+    </script>
+</body>
+
+</html>
